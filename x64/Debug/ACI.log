@@ -14,6 +14,23 @@ F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI
 F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,69): warning C4244:         [
 F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,69): warning C4244:             _Tp=float
 F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,69): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(182,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(241,12): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(133,27): warning C4305: 'initializing': truncation from 'double' to 'float'
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(139,34): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244: '=': conversion from 'double' to '_Tp', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:         with
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:             _Tp=float
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,14): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244: '+=': conversion from '_Tp' to '_Ty', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:         with
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:             _Tp=float
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:         and
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:             _Ty=int
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,61): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(197,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(292,12): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
   ACI.vcxproj -> F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\x64\Debug\ACI.exe

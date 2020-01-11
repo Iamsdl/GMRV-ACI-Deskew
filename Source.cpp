@@ -91,8 +91,8 @@ void DrawHoughLines(Mat& points, Mat& dst, Mat& cdst, Mat& cdstP)
 	cdstP = cdst.clone();
 	// Standard Hough Line Transform
 	vector<Vec2f> lines; // will hold the results of the detection
-	HoughLines(points, lines, 1, CV_PI / 180, 200, 0, 0, CV_PI / 2 - 5 * CV_PI / 180, CV_PI / 2 + 5 * CV_PI / 180); // runs the actual detection
-													   // Draw the lines
+	HoughLines(points, lines, 1, CV_PI / 180, 0, 0, 0, - 5 * CV_PI / 180, + 5 * CV_PI / 180); // runs the actual detection
+	// Draw the lines
 	for (size_t i = 0; i < lines.size(); i++)
 	{
 		float rho = lines[i][0], theta = lines[i][1];
@@ -224,6 +224,43 @@ void ProjGetTheta(cv::Mat& points, float& theta, float& confidence, int binSize)
 	}
 }
 
+void fftshift(const Mat& inputImg, Mat& outputImg)
+{
+	outputImg = inputImg.clone();
+	int cx = outputImg.cols / 2;
+	int cy = outputImg.rows / 2;
+	Mat q0(outputImg, Rect(0, 0, cx, cy));
+	Mat q1(outputImg, Rect(cx, 0, cx, cy));
+	Mat q2(outputImg, Rect(0, cy, cx, cy));
+	Mat q3(outputImg, Rect(cx, cy, cx, cy));
+	Mat tmp;
+	q0.copyTo(tmp);
+	q3.copyTo(q0);
+	tmp.copyTo(q3);
+	q1.copyTo(tmp);
+	q2.copyTo(q1);
+	tmp.copyTo(q2);
+}
+
+void Complex2Gray(const Mat& inputImg, Mat& outputImg)
+{
+	Mat RI[2];
+	split(inputImg, RI);
+	cv::multiply(RI[0], RI[0], RI[0]);
+	cv::multiply(RI[1], RI[1], RI[1]);
+	cv::add(RI[0], RI[1], outputImg);
+	cv::sqrt(outputImg, outputImg);
+	double minn, maxx;
+	cv::minMaxLoc(outputImg, &minn, &maxx);
+	outputImg.convertTo(outputImg, CV_8U, 255/ maxx);
+	int dilation_size = 3;
+	Mat element = getStructuringElement(MORPH_ELLIPSE,
+		Size(2 * dilation_size + 1, 2 * dilation_size + 1),
+		Point(dilation_size, dilation_size));
+	/// Apply the dilation operation
+	dilate(outputImg, outputImg, element);
+}
+
 int main()
 {
 	std::clock_t start;
@@ -261,9 +298,13 @@ int main()
 			src.copyTo(src_gray); //already grayscale
 			blur(src_gray, src_gray, Size(3, 3));
 
+
+
 			// Threshhold image
 			Mat threshold_output;
 			threshold(src_gray, threshold_output, 150, 255, THRESH_BINARY);
+
+
 
 			//Invert image (white text on black background)
 			Mat thresold_output_inverted;
@@ -273,6 +314,29 @@ int main()
 			Mat points = Mat::zeros(src.size(), CV_8UC1);
 			getPoints(threshold_output, points);
 
+
+#pragma region DFT
+			Mat planes[2] = { Mat_<float>(points.clone()), Mat::zeros(points.size(), CV_32F) };
+			Mat fourierOutput;
+			merge(planes, 2, fourierOutput);
+			cv::dft(fourierOutput, fourierOutput, DFT_SCALE);
+			fftshift(fourierOutput, fourierOutput);
+
+			Mat test;
+
+			Complex2Gray(fourierOutput, test);
+
+			threshold(test, test, 50, 255, THRESH_BINARY);
+
+
+			Mat dst, cdst, cdstP;
+			DrawHoughLines(test, dst, cdst, cdstP);
+
+			float thetaFourier = 0, confidenceFourier = 0;
+			HoughGetTheta(test, thetaFourier, confidenceFourier);
+
+			
+#pragma endregion
 
 			//Mat dst, cdst, cdstP;
 			//DrawHoughLines(points, dst, cdst, cdstP);
@@ -296,8 +360,15 @@ int main()
 				<< to_string(thetaProj) << ","
 				<< to_string(confidenceProj) << ",\n";
 
+
+
+
 		}
 	}
+
+
+
+
 	out.close();
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	cout << "Finished in " << duration << " seconds";
