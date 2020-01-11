@@ -3,9 +3,6 @@
 ################################################################################
 
 /.vs
-/opencv/sources
-/opencv/README.md.txt
-/opencv/LICENSE_FFMPEG.txt
-/opencv/LICENSE.txt
-/opencv/build
-/opencv_world412d.dll
+/opencv
+/x64
+/x86
