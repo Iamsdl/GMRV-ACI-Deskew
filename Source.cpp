@@ -90,10 +90,10 @@ void DrawHoughLines(Mat& points, Mat& dst, Mat& cdst, Mat& cdstP)
 	cvtColor(points, cdst, COLOR_GRAY2BGR);
 	cdstP = cdst.clone();
 	// Standard Hough Line Transform
-	vector<Vec2f> lines; // will hold the results of the detection
-	HoughLines(points, lines, 1, CV_PI / 180, 0, 0, 0, - 5 * CV_PI / 180, + 5 * CV_PI / 180); // runs the actual detection
+	vector<Vec3f> lines; // will hold the results of the detection
+	HoughLines(points, lines, 1, CV_PI / 180, 0, 0, 0); // runs the actual detection
 	// Draw the lines
-	for (size_t i = 0; i < lines.size(); i++)
+	for (size_t i = 0; i < 1; i++)
 	{
 		float rho = lines[i][0], theta = lines[i][1];
 		Point pt1, pt2;
@@ -103,7 +103,7 @@ void DrawHoughLines(Mat& points, Mat& dst, Mat& cdst, Mat& cdstP)
 		pt1.y = cvRound(y0 + 2000 * (a));
 		pt2.x = cvRound(x0 - 2000 * (-b));
 		pt2.y = cvRound(y0 - 2000 * (a));
-		line(cdst, pt1, pt2, Scalar(0, 0, 255), 3, LINE_AA);
+		line(cdst, pt1, pt2, Scalar(0, 0, 255), 1, LINE_AA);
 	}
 	// Probabilistic Line Transform
 	vector<Vec4i> linesP; // will hold the results of the detection
@@ -131,12 +131,12 @@ void HoughGetTheta(Mat points, float& theta, float& confidence)
 	vector<Vec3f> lines; // will hold the results of the detection
 	float thetaStep = 1;
 	float toRad = CV_PI / 180;
-	HoughLines(points, lines, 1, thetaStep * toRad, 0, 0, 0, CV_PI / 2 - 5 * toRad, CV_PI / 2 + (5 + thetaStep) * toRad); // runs the actual detection
+	HoughLines(points, lines, 1, thetaStep * toRad, 0, 0, 0); // runs the actual detection
 
 	theta = 0;
 	confidence = 0;
 
-	vector<int> hist(10 / thetaStep + 1);
+	vector<int> hist(360 / thetaStep + 1);
 
 	float numberOfThetas = 0;
 
@@ -146,7 +146,49 @@ void HoughGetTheta(Mat points, float& theta, float& confidence)
 		if (lines[i][2] > lines[0][2] / 4)
 		{
 			numberOfThetas += lines[i][2];
-			hist[round((5 + lines[i][1]) / thetaStep)] += lines[i][2];
+			hist[round((90 + lines[i][1]) / thetaStep)] += lines[i][2];
+		}
+	}
+
+	theta = lines[0][1];
+	for (size_t i = 0; i < lines.size(); i++)
+	{
+		if (lines[i][2] > lines[0][2] / 4)
+		{
+			confidence += pow(lines[i][1] - theta, 2);
+		}
+	}
+	confidence /= numberOfThetas;
+	//confidence = 1.0f - (confidence / 25.0f);
+	confidence = 1.0f - confidence;
+}
+void FourierGetTheta(Mat points, float& theta, float& confidence)
+{
+	// Edge detection
+	//Canny(points, dst, 50, 200, 3);
+	//Mat points2;
+	//cvtColor(points, points, COLOR_RGB2GRAY);
+
+	// Standard Hough Line Transform
+	vector<Vec3f> lines; // will hold the results of the detection
+	float thetaStep = 1;
+	float toRad = CV_PI / 180;
+	HoughLines(points, lines, 1, thetaStep * toRad, 0, 0, 0); // runs the actual detection
+
+	theta = 0;
+	confidence = 0;
+
+	vector<int> hist(360 / thetaStep + 1);
+
+	float numberOfThetas = 0;
+
+	for (size_t i = 0; i < lines.size(); i++)
+	{
+		lines[i][1] = lines[i][1] * 180 / CV_PI;
+		if (lines[i][2] > lines[0][2] / 4)
+		{
+			numberOfThetas += lines[i][2];
+			hist[round((lines[i][1]) / thetaStep)] += lines[i][2];
 		}
 	}
 
@@ -252,8 +294,8 @@ void Complex2Gray(const Mat& inputImg, Mat& outputImg)
 	cv::sqrt(outputImg, outputImg);
 	double minn, maxx;
 	cv::minMaxLoc(outputImg, &minn, &maxx);
-	outputImg.convertTo(outputImg, CV_8U, 255/ maxx);
-	int dilation_size = 3;
+	outputImg.convertTo(outputImg, CV_8U, 255 / maxx);
+	int dilation_size = 0;
 	Mat element = getStructuringElement(MORPH_ELLIPSE,
 		Size(2 * dilation_size + 1, 2 * dilation_size + 1),
 		Point(dilation_size, dilation_size));
@@ -300,15 +342,9 @@ int main()
 
 
 
-			// Threshhold image
+			// Threshhold image + invert
 			Mat threshold_output;
-			threshold(src_gray, threshold_output, 150, 255, THRESH_BINARY);
-
-
-
-			//Invert image (white text on black background)
-			Mat thresold_output_inverted;
-			cv::subtract(Scalar::all(255), threshold_output, thresold_output_inverted);
+			threshold(src_gray, threshold_output, 150, 255, THRESH_BINARY_INV);
 
 			//Get image with points from characters
 			Mat points = Mat::zeros(src.size(), CV_8UC1);
@@ -316,7 +352,7 @@ int main()
 
 
 #pragma region DFT
-			Mat planes[2] = { Mat_<float>(points.clone()), Mat::zeros(points.size(), CV_32F) };
+			Mat planes[2] = { Mat_<float>(threshold_output.clone()), Mat::zeros(threshold_output.size(), CV_32F) };
 			Mat fourierOutput;
 			merge(planes, 2, fourierOutput);
 			cv::dft(fourierOutput, fourierOutput, DFT_SCALE);
@@ -326,20 +362,17 @@ int main()
 
 			Complex2Gray(fourierOutput, test);
 
-			threshold(test, test, 50, 255, THRESH_BINARY);
-
+			threshold(test, test, 20, 255, THRESH_BINARY);
 
 			Mat dst, cdst, cdstP;
 			DrawHoughLines(test, dst, cdst, cdstP);
 
 			float thetaFourier = 0, confidenceFourier = 0;
-			HoughGetTheta(test, thetaFourier, confidenceFourier);
-
-			
+			FourierGetTheta(test, thetaFourier, confidenceFourier);
 #pragma endregion
 
-			//Mat dst, cdst, cdstP;
-			//DrawHoughLines(points, dst, cdst, cdstP);
+			Mat dst2, cdst2, cdstP2;
+			DrawHoughLines(points, dst2, cdst2, cdstP2);
 
 			float thetaHough = 0, confidenceHough = 0;
 			HoughGetTheta(points, thetaHough, confidenceHough);
@@ -348,17 +381,17 @@ int main()
 			rotate_bound(src, rotatedImage, thetaHough * 180 / CV_PI - 90);*/
 
 			float thetaProj = 0, confidenceProj = 0;
-			ProjGetTheta(points, thetaProj, confidenceProj, 10);
+			//ProjGetTheta(points, thetaProj, confidenceProj, 10);
 
 			/*Mat src3 = Mat::zeros(src.size(), CV_8UC3);
 			rotate_bound(src, src3, thetaProj);*/
 
-			out << to_string(imageNr) << ","
+			/*out << to_string(imageNr) << ","
 				<< to_string(-imageAngle / 10.0f) << ","
 				<< to_string(thetaHough) << ","
 				<< to_string(confidenceHough) << ","
 				<< to_string(thetaProj) << ","
-				<< to_string(confidenceProj) << ",\n";
+				<< to_string(confidenceProj) << ",\n";*/
 
 
 
