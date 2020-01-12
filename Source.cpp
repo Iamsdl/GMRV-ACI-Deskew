@@ -72,7 +72,7 @@ void getPoints(Mat& src_inverted, Mat& drawing)
 	{
 		//Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
 		//drawContours(points, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point());
-		Point2f point = Point2f((boundRect[i].x * 2 + boundRect[i].width) / 2, boundRect[i].y + boundRect[i].height);
+		Point2f point = Point2f(boundRect[i].x + boundRect[i].width / 2, boundRect[i].y + boundRect[i].height);
 		rectangle(drawing, point, point, Scalar(255), 5, 8, 0);
 		//circle(points, center[i], (int)radius[i], color, 2, 8, 0);
 	}
@@ -143,7 +143,7 @@ void HoughGetTheta(Mat points, float& theta, float& confidence)
 	for (size_t i = 0; i < lines.size(); i++)
 	{
 		lines[i][1] = lines[i][1] * 180 / CV_PI - 90;
-		if (lines[i][2] > lines[0][2] / 4)
+		if (lines[i][2] > lines[0][2] / 2)
 		{
 			numberOfThetas += lines[i][2];
 			hist[round((90 + lines[i][1]) / thetaStep)] += lines[i][2];
@@ -153,7 +153,7 @@ void HoughGetTheta(Mat points, float& theta, float& confidence)
 	theta = lines[0][1];
 	for (size_t i = 0; i < lines.size(); i++)
 	{
-		if (lines[i][2] > lines[0][2] / 4)
+		if (lines[i][2] > lines[0][2] / 2)
 		{
 			confidence += pow(lines[i][1] - theta, 2);
 		}
@@ -185,7 +185,7 @@ void FourierGetTheta(Mat points, float& theta, float& confidence)
 	for (size_t i = 0; i < lines.size(); i++)
 	{
 		lines[i][1] = lines[i][1] * 180 / CV_PI;
-		if (lines[i][2] > lines[0][2] / 4)
+		if (lines[i][2] > lines[0][2] / 2)
 		{
 			numberOfThetas += lines[i][2];
 			hist[round((lines[i][1]) / thetaStep)] += lines[i][2];
@@ -195,7 +195,7 @@ void FourierGetTheta(Mat points, float& theta, float& confidence)
 	theta = lines[0][1];
 	for (size_t i = 0; i < lines.size(); i++)
 	{
-		if (lines[i][2] > lines[0][2] / 4)
+		if (lines[i][2] > lines[0][2] / 2)
 		{
 			confidence += pow(lines[i][1] - theta, 2);
 		}
@@ -203,6 +203,7 @@ void FourierGetTheta(Mat points, float& theta, float& confidence)
 	confidence /= numberOfThetas;
 	//confidence = 1.0f - (confidence / 25.0f);
 	confidence = 1.0f - confidence;
+	theta -= 90;
 }
 void rotate_bound(Mat& image, Mat& out_image, float angle)
 {
@@ -315,7 +316,7 @@ int main()
 	int highestAngle = 5;
 
 	ofstream out("results.csv");
-	out << "imageNr,imageAngle,thetaHough,confidenceHough,thetaProj,confidenceProj,\n";
+	out << "imageNr,imageAngle,thetaHough,confidenceHough,thetaFourier,confidenceFourier,thetaProj,confidenceProj,\n";
 
 	for (int imageNr = 1; imageNr <= nrOfImages; imageNr++)
 	{
@@ -338,13 +339,15 @@ int main()
 			// Convert image to gray and blur it
 			Mat src_gray;
 			src.copyTo(src_gray); //already grayscale
-			blur(src_gray, src_gray, Size(3, 3));
+			//blur(src_gray, src_gray, Size(3, 3));
 
 
 
 			// Threshhold image + invert
 			Mat threshold_output;
 			threshold(src_gray, threshold_output, 150, 255, THRESH_BINARY_INV);
+
+
 
 			//Get image with points from characters
 			Mat points = Mat::zeros(src.size(), CV_8UC1);
@@ -355,20 +358,43 @@ int main()
 			Mat planes[2] = { Mat_<float>(threshold_output.clone()), Mat::zeros(threshold_output.size(), CV_32F) };
 			Mat fourierOutput;
 			merge(planes, 2, fourierOutput);
-			cv::dft(fourierOutput, fourierOutput, DFT_SCALE);
-			fftshift(fourierOutput, fourierOutput);
+			cv::dft(fourierOutput, fourierOutput);
+
+			Mat fourierOutputShifted;
+			fftshift(fourierOutput, fourierOutputShifted);
 
 			Mat test;
 
 			Complex2Gray(fourierOutput, test);
 
-			threshold(test, test, 20, 255, THRESH_BINARY);
 
-			Mat dst, cdst, cdstP;
-			DrawHoughLines(test, dst, cdst, cdstP);
+			double maxx, minn;
+			minMaxLoc(test, &minn, &maxx);
+
+			threshold(test, test, maxx/5, 1, THRESH_BINARY);
+			test.convertTo(test, CV_32F);
+
+			split(fourierOutput, planes);
+
+			Mat test2;
+
+			cv::multiply(test, planes[0], planes[0]);
+			cv::multiply(test, planes[1], planes[1]);
+			merge(planes, 2, fourierOutput);
+
+
+			cv::idft(fourierOutput, fourierOutput, DFT_SCALE);
+
+			split(fourierOutput, planes);
+			planes[0].convertTo(test2, CV_8U, 255);
+
+			test2 = Scalar(255) - test2;
+
+			/*Mat dst, cdst, cdstP;
+			DrawHoughLines(test, dst, cdst, cdstP);*/
 
 			float thetaFourier = 0, confidenceFourier = 0;
-			FourierGetTheta(test, thetaFourier, confidenceFourier);
+			FourierGetTheta(test2, thetaFourier, confidenceFourier);
 #pragma endregion
 
 			Mat dst2, cdst2, cdstP2;
@@ -381,21 +407,19 @@ int main()
 			rotate_bound(src, rotatedImage, thetaHough * 180 / CV_PI - 90);*/
 
 			float thetaProj = 0, confidenceProj = 0;
-			//ProjGetTheta(points, thetaProj, confidenceProj, 10);
+			ProjGetTheta(points, thetaProj, confidenceProj, 10);
 
 			/*Mat src3 = Mat::zeros(src.size(), CV_8UC3);
 			rotate_bound(src, src3, thetaProj);*/
 
-			/*out << to_string(imageNr) << ","
+			out << to_string(imageNr) << ","
 				<< to_string(-imageAngle / 10.0f) << ","
 				<< to_string(thetaHough) << ","
 				<< to_string(confidenceHough) << ","
+				<< to_string(thetaFourier) << ","
+				<< to_string(confidenceFourier) << ","
 				<< to_string(thetaProj) << ","
-				<< to_string(confidenceProj) << ",\n";*/
-
-
-
-
+				<< to_string(confidenceProj) << ",\n";
 		}
 	}
 
