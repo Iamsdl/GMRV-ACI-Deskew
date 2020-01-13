@@ -1,25 +1,6 @@
-#include <vector>
-#include <fstream>
-#include <algorithm>
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <ctime>
-#include <iostream>
-
+#include "Utils.h"
 using namespace std;
 using namespace cv;
-
-float ComputeMeanValue(vector<int> sumRows)
-{
-	float med = 0;
-	for (size_t j = 0; j < sumRows.size(); j++)
-	{
-		med += sumRows[j];
-	}
-	med /= sumRows.size();
-	return med;
-}
 
 float ComputeVariance(vector<int> sumRows, float med)
 {
@@ -32,66 +13,14 @@ float ComputeVariance(vector<int> sumRows, float med)
 	return var;
 }
 
-vector<int> ComputeRowSums(Mat src)
+void DrawHoughLines(Mat& points, Mat& dst, float& angle, int threshold, float step)
 {
-	vector<int> sumRows(src.size().height);
+	cvtColor(points, dst, COLOR_GRAY2BGR);
 
-	for (size_t j = 0; j < src.size().height; j++)
-	{
-		for (size_t k = 0; k < src.size().width; k++)
-		{
-			sumRows[j] += src.at<unsigned char>(j, k) / 255;
-		}
-	}
-
-	return sumRows;
-}
-
-void getPoints(Mat& src_inverted, Mat& drawing)
-{
-	/// Find contours
-	vector<vector<Point> > contours;
-	findContours(src_inverted, contours, RETR_LIST, CHAIN_APPROX_SIMPLE, Point(0, 0));
-
-	/// Approximate contours to polygons + get bounding rects and circles
-	vector<vector<Point> > contours_poly(contours.size());
-	vector<Rect> boundRect(contours.size());
-	//vector<Point2f>center(contours.size());
-	//vector<float>radius(contours.size());
-
-	for (int i = 0; i < contours.size(); i++)
-	{
-		approxPolyDP(Mat(contours[i]), contours_poly[i], 3, true);
-		boundRect[i] = boundingRect(Mat(contours_poly[i]));
-		//minEnclosingCircle((Mat)contours_poly[i], center[i], radius[i]);
-	}
-
-
-	/// Draw polygonal contour + bonding rects + circles
-	for (int i = 0; i < boundRect.size(); i++)
-	{
-		//Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
-		//drawContours(points, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point());
-		Point2f point = Point2f(boundRect[i].x + boundRect[i].width / 2, boundRect[i].y + boundRect[i].height);
-		rectangle(drawing, point, point, Scalar(255), 5, 8, 0);
-		//circle(points, center[i], (int)radius[i], color, 2, 8, 0);
-	}
-	/// Show in a window
-	//namedWindow("Contours", WINDOW_FULLSCREEN);
-	//imshow("Contours", drawing);
-}
-
-void DrawHoughLines(Mat& points, Mat& dst, Mat& cdst, Mat& cdstP)
-{
-	// Edge detection
-	//Canny(points, dst, 50, 200, 3);
-	// Copy edges to the images that will display the results in BGR
-	//cvtColor(points, points, COLOR_RGB2GRAY);
-	cvtColor(points, cdst, COLOR_GRAY2BGR);
-	cdstP = cdst.clone();
 	// Standard Hough Line Transform
 	vector<Vec3f> lines; // will hold the results of the detection
-	HoughLines(points, lines, 1, CV_PI / 180, 0, 0, 0); // runs the actual detection
+	HoughLines(points, lines, 1, step*CV_PI / 180, threshold, 0, 0); // runs the actual detection
+	
 	// Draw the lines
 	for (size_t i = 0; i < 1; i++)
 	{
@@ -103,30 +32,15 @@ void DrawHoughLines(Mat& points, Mat& dst, Mat& cdst, Mat& cdstP)
 		pt1.y = cvRound(y0 + 2000 * (a));
 		pt2.x = cvRound(x0 - 2000 * (-b));
 		pt2.y = cvRound(y0 - 2000 * (a));
-		line(cdst, pt1, pt2, Scalar(0, 0, 255), 1, LINE_AA);
+		line(dst, pt1, pt2, Scalar(0, 0, 255), 1, LINE_AA);
 	}
-	// Probabilistic Line Transform
-	vector<Vec4i> linesP; // will hold the results of the detection
-	HoughLinesP(points, linesP, 1, CV_PI / 180, 50, 50, 10); // runs the actual detection
-														  // Draw the lines
-	for (size_t i = 0; i < linesP.size(); i++)
-	{
-		Vec4i l = linesP[i];
-		line(cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0, 0, 255), 3, LINE_AA);
-	}
-	// Show results
-	//imshow("Source", points);
-	//imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst);
-	////imshow("Detected Lines (in red) - Probabilistic Line Transform", cdstP);
+
+	angle = (CV_PI/2-lines[0][1])* 180 / CV_PI;
+
 }
 
 void HoughGetTheta(Mat points, float& theta, float& confidence)
 {
-	// Edge detection
-	//Canny(points, dst, 50, 200, 3);
-	//Mat points2;
-	//cvtColor(points, points, COLOR_RGB2GRAY);
-
 	// Standard Hough Line Transform
 	vector<Vec3f> lines; // will hold the results of the detection
 	float thetaStep = 1;
@@ -159,7 +73,7 @@ void HoughGetTheta(Mat points, float& theta, float& confidence)
 		}
 	}
 	confidence /= numberOfThetas;
-	//confidence = 1.0f - (confidence / 25.0f);
+	
 	confidence = 1.0f - confidence;
 }
 void FourierGetTheta(Mat points, float& theta, float& confidence)
@@ -204,31 +118,6 @@ void FourierGetTheta(Mat points, float& theta, float& confidence)
 	//confidence = 1.0f - (confidence / 25.0f);
 	confidence = 1.0f - confidence;
 	theta -= 90;
-}
-void rotate_bound(Mat& image, Mat& out_image, float angle)
-{
-	//grab the dimensions of the imageand then determine the
-	//center
-	int h = image.size().height;
-	int w = image.size().width;
-	Point2f center = Point2f(w / 2.0f, h / 2.0f);
-
-	//grab the rotation matrix(applying the negative of the
-	//angle to rotate clockwise), then grab the sine and cosine
-	//(i.e., the rotation components of the matrix)
-	Mat M = getRotationMatrix2D(center, angle, 1.0);
-	double cos = abs(M.at<double>(0, 0));
-	double sin = abs(M.at<double>(0, 1));
-	//compute the new bounding dimensions of the image
-	int nW = int((h * sin) + (w * cos));
-	int nH = int((h * cos) + (w * sin));
-
-	//adjust the rotation matrix to take into account translation
-	M.at<double>(0, 2) += (nW / 2) - center.x;
-	M.at<double>(1, 2) += (nH / 2) - center.y;
-
-	//perform the actual rotation and return the image
-	return warpAffine(image, out_image, M, Size(nW, nH));
 }
 void ProjGetTheta(cv::Mat& points, float& theta, float& confidence, int binSize)
 {
@@ -304,13 +193,8 @@ void Complex2Gray(const Mat& inputImg, Mat& outputImg)
 	dilate(outputImg, outputImg, element);
 }
 
-int main()
+int ComputeAllImgs()
 {
-	std::clock_t start;
-	double duration;
-
-	start = std::clock();
-
 	int nrOfImages = 3;
 	int lowestAngle = -5;
 	int highestAngle = 5;
@@ -371,7 +255,7 @@ int main()
 			double maxx, minn;
 			minMaxLoc(test, &minn, &maxx);
 
-			threshold(test, test, maxx/5, 1, THRESH_BINARY);
+			threshold(test, test, maxx / 5, 1, THRESH_BINARY);
 			test.convertTo(test, CV_32F);
 
 			split(fourierOutput, planes);
@@ -398,7 +282,7 @@ int main()
 #pragma endregion
 
 			Mat dst2, cdst2, cdstP2;
-			DrawHoughLines(points, dst2, cdst2, cdstP2);
+			//DrawHoughLines(points, dst2, cdst2, cdstP2);
 
 			float thetaHough = 0, confidenceHough = 0;
 			HoughGetTheta(points, thetaHough, confidenceHough);
@@ -422,13 +306,66 @@ int main()
 				<< to_string(confidenceProj) << ",\n";
 		}
 	}
+	out.close();
+}
 
 
+int main()
+{
+	std::clock_t start;
+	double duration;
+	start = std::clock();
 
+	/*for (float angle = -10; angle <= 10; angle += 0.1)
+	{
+		char buff[20];
+		string fileName;
+		sprintf_s(buff,"out/angle=%.1f.png", angle);
+		fileName = buff;
+		Mat out;
+		Mat in;
+		in = imread("in/input1.PNG");
+		rotate_bound(in, out, angle);
+		imwrite(fileName,out);
+	}
+	*/
+
+	ofstream out("resultsHough StepAdjust.csv");
+	out << "imageAngle,thetaHough\n";
+		for (float imageAngle = -10; imageAngle <=10; imageAngle+=0.1)
+		{
+			imageAngle = round(imageAngle * 10) / 10;
+			char buff[20];
+			string filename;
+			sprintf_s(buff, "angle=%.1f.png", imageAngle);
+			filename = buff;
+			// Loads an image
+			Mat src = imread("out/" + filename, IMREAD_GRAYSCALE);
+			// Check if image is loaded fine
+			if (src.empty()) {
+				printf(" Error opening image\n");
+				printf(" Program Arguments: [image_name -- default %s] \n", filename);
+				continue;
+			}
+			// Threshhold image + invert
+			Mat threshold_output;
+			threshold(src, threshold_output, 150, 255, THRESH_BINARY_INV);
+
+			//Get image with points from characters
+			Mat points = Mat::zeros(src.size(), CV_8UC1);
+			getPoints(threshold_output, points);
+
+			Mat dst2;
+			float angle = 0,angle2=0,conf;
+			DrawHoughLines(points, dst2, angle, 50,0.1);
+			//HoughGetTheta(points, angle2, conf);
+			int a = 1;
+			out << imageAngle << ","<< to_string(angle) << "\n";
+		}
 
 	out.close();
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
-	cout << "Finished in " << duration << " seconds";
+	std::cout << "Finished in " << duration << " seconds";
 	cv::waitKey();
 	return 0;
 }
