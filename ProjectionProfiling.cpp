@@ -4,7 +4,7 @@ void ProjectionProfiling::ApplyTransform(const cv::Mat& points, float& theta, fl
 {
 	cv::Mat rotatedImageTemp = cv::Mat::zeros(points.size(), CV_8UC1);
 	float varMax = 0;
-	int varSum = 0;
+	float varSum = 0;
 	for (float angle = MIN_ANGLE; angle <= MAX_ANGLE; angle += STEP)
 	{
 		RotateImage(points, rotatedImageTemp, angle, cv::Scalar(0));
@@ -24,8 +24,8 @@ void ProjectionProfiling::ApplyTransform(const cv::Mat& points, float& theta, fl
 			varMax = varb;
 			theta = -angle;
 		}
-		confidence = varMax / varSum;
 	}
+	confidence = 1 - (abs(0.5f - varMax / varSum) * PROJ_CONFIDENCE_MOD);
 	/*for (int i = 0; i <= 10; i++)
 	{
 		float angle = i - 5;

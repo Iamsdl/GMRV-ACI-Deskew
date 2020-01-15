@@ -2,5 +2,5 @@
 
 void SpatialHough::Compute(const cv::Mat& src, float& angle, float& confidence)
 {
-	Hough::ApplyTransform(src, angle, 10,false);
+	Hough::ApplyTransform(src, angle, confidence, 10, false);
 }

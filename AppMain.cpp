@@ -127,12 +127,15 @@ int main()
 	std::clock_t start;
 	double duration;
 	start = std::clock();
+	stringstream sstream;
+	sstream << fixed << setprecision(2);
 
+	sstream << "valori-HoughConfidenceMod=" << HOUGH_CONFIDENCE_MOD << "ProjConfidenceMod=" << PROJ_CONFIDENCE_MOD << ".csv";
+	ofstream out(sstream.str());
+	sstream.str(std::string());
 
-
-	ofstream out("valori1.csv");
 	out << fixed << setprecision(2);
-	out << "index,angle,houghAngle,projectionAngle,freqHoughAngle\n";
+	out << "index,angle,houghAngle,houghConfidence,projectionAngle,projectionConfidence,freqHoughAngle,freqHoughConfidence\n";
 
 	IAlgorithm* spatialHough = new SpatialHough();
 	IAlgorithm* spatialProjection = new SpatialProjectionProfiling();
@@ -145,18 +148,18 @@ int main()
 			/*string inputName = "in/" + to_string(i) + ".png";
 			Mat src = imread(inputName);
 
-			stringstream sstream;
-			sstream << fixed << setprecision(2) << "out/" << i << "-theta=" << angle << ".png";
+			sstream << "out/" << i << "-theta=" << angle << ".png";
 			string outName = sstream.str();
+			sstream.str(std::string());
 			Mat out;
 
 			RotateImage(src, out, angle, cv::Scalar(255, 255, 255));
 			imwrite(outName, out);*/
 
 
-			stringstream sstream;
-			sstream << fixed << setprecision(2) << "out/" << i << "-theta=" << angle << ".png";
+			sstream << "out/" << i << "-theta=" << angle << ".png";
 			string inputName = sstream.str();
+			sstream.str(std::string());
 
 			Mat src = imread(inputName, IMREAD_GRAYSCALE);
 			cv::Mat preprocessedSrc = IAlgorithm::Preprocess(src);
@@ -167,7 +170,7 @@ int main()
 			spatialHough->Compute(preprocessedSrc, houghAngle, houghConfidence);
 			spatialProjection->Compute(preprocessedSrc, projectionAngle, projectionConfidence);
 			frequencyHough->Compute(src, freqHoughAngle, freqHoughConfidence);
-			out << i << "," << angle << "," << houghAngle << "," << projectionAngle << "," << freqHoughAngle << "\n";
+			out << i << "," << angle << "," << houghAngle << "," << houghConfidence << "," << projectionAngle << "," << projectionConfidence << "," << freqHoughAngle << "," << freqHoughConfidence << "\n";
 		}
 	}
 

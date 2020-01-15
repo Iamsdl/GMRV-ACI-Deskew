@@ -1,6 +1,6 @@
 #include "Hough.h"
 
-cv::Mat Hough::ApplyTransform(const cv::Mat& points, float& angle, int threshold, bool draw)
+cv::Mat Hough::ApplyTransform(const cv::Mat& points, float& angle, float& confidence, int threshold, bool draw)
 {
 	cv::Mat dst;
 	cv::cvtColor(points, dst, cv::COLOR_GRAY2BGR);
@@ -10,19 +10,24 @@ cv::Mat Hough::ApplyTransform(const cv::Mat& points, float& angle, int threshold
 
 	float drawAngle = lines[0][1];
 
-	int correctVotes = 0;
-	int allVotes = 0;
 	for (size_t i = 0; i < lines.size(); i++)
 	{
 		lines[i][1] = (CV_PI / 2 - lines[i][1]) * 180 / CV_PI;
 		NormalizeAngle(lines[i][1]);
-		if (lines[i][2] > lines[0][2] / 2)
+	}
+
+	int correctVotes = 0;
+	int allVotes = 0;
+	for (size_t i = 0; i < lines.size(); i++)
+	{
+		if (lines[i][2] > lines[0][2] / HOUGH_CONFIDENCE_MOD)
 		{
-			if (lines[i][1] == lines[0][1])
+			if (abs(lines[i][1] - lines[0][1]) < 0.001f)
 				correctVotes += lines[i][2];
 			allVotes += lines[i][2];
 		}
 	}
+	confidence = (float) correctVotes / allVotes;
 	angle = lines[0][1];
 
 	if (!draw)

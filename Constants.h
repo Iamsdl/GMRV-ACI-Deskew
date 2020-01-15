@@ -8,3 +8,5 @@
 #define STEP 1
 #define INPUT_STEP 0.25f
 
+#define HOUGH_CONFIDENCE_MOD 1.25f
+#define PROJ_CONFIDENCE_MOD 1
