@@ -1,58 +1,45 @@
-﻿  Source.cpp
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(43,44): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244: 'argument': conversion from '_Tp' to '_Tp', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:         with
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:             _Tp=int
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:         and
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:             _Tp=float
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,83): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,42): warning C4244: 'argument': conversion from 'int' to '_Tp', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,42): warning C4244:         with
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,42): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,42): warning C4244:             _Tp=float
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(75,42): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(133,27): warning C4305: 'initializing': truncation from 'double' to 'float'
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(139,35): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244: '=': conversion from 'double' to '_Tp', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:         with
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:             _Tp=float
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(145,43): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,14): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244: '+=': conversion from '_Tp' to '_Ty', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:         with
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:             _Tp=float
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:         and
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:             _Ty=int
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(149,62): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(175,27): warning C4305: 'initializing': truncation from 'double' to 'float'
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(181,35): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(187,35): warning C4244: '=': conversion from 'double' to '_Tp', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(187,35): warning C4244:         with
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(187,35): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(187,35): warning C4244:             _Tp=float
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(187,35): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,14): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244: '+=': conversion from '_Tp' to '_Ty', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:         with
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:             _Tp=float
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:         and
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:         [
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:             _Ty=int
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(191,57): warning C4244:         ]
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(240,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Source.cpp(335,12): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
-  Generating code
-  1 of 453 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  ACI.vcxproj -> F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\x64\Release\ACI.exe
+﻿  Generating code
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'd:\agent\_work\8\s\src\vctools\Compiler\Utc\src\p2\main.c', line 166)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x2e7ed
+    link!InvokeCompilerPass()+0x21fcf
+    link!InvokeCompilerPass()+0x21ef0
+    link!InvokeCompilerPass()+0x2d92d
+  
+LINK : fatal error C1001: An internal error has occurred in the compiler.
+  (compiler file 'd:\agent\_work\8\s\src\vctools\Compiler\Utc\src\p2\main.c', line 166)
+   To work around this problem, try simplifying or changing the program near the locations listed above.
+  Please choose the Technical Support command on the Visual C++ 
+   Help menu, or open the Technical Support help file for more information
+    link!InvokeCompilerPass()+0x2e7ed
+    link!InvokeCompilerPass()+0x21fcf
+    link!InvokeCompilerPass()+0x21ef0
+    link!InvokeCompilerPass()+0x2d92d
+  
+  
+LINK : fatal error LNK1000: Internal error during IMAGE::BuildImage
+  
+    Version 14.24.28315.0
+  
+    ExceptionCode            = C0000005
+    ExceptionFlags           = 00000000
+    ExceptionAddress         = 793793E9 (78ED0000) "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\bin\HostX86\x64\c2.dll"
+    NumberParameters         = 00000002
+    ExceptionInformation[ 0] = 00000000
+    ExceptionInformation[ 1] = 25DC0DFD
+  
+  CONTEXT:
+    Eax    = 00000000  Esp    = 006FE438
+    Ebx    = 25DC0DFD  Ebp    = 006FE448
+    Ecx    = 00001505  Esi    = 00000000
+    Edx    = 00000000  Edi    = 00000000
+    Eip    = 793793E9  EFlags = 00010246
+    SegCs  = 00000023  SegDs  = 0000002B
+    SegSs  = 0000002B  SegEs  = 0000002B
+    SegFs  = 00000053  SegGs  = 0000002B
+    Dr0    = 00000000  Dr3    = 00000000
+    Dr1    = 00000000  Dr6    = 00000000
+    Dr2    = 00000000  Dr7    = 00000000

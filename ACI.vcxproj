@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1000EF69-1852-4A8D-9E91-043E0647AF65}</ProjectGuid>
     <RootNamespace>ACI</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,7 +127,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\OpenCV\build\include;$(SolutionDir)\OpenCV\build\x64\vc15\bin</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\OpenCV\build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +138,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="FourierTransform.cpp" />
+    <ClCompile Include="FrequencyProjectionProfiling.cpp" />
+    <ClCompile Include="Hough.cpp" />
+    <ClCompile Include="FrequencyHough.cpp" />
+    <ClCompile Include="ProjectionProfiling.cpp" />
+    <ClCompile Include="SpatialProjectionProfiling.cpp" />
+    <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="SpatialHough.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FourierTransform.h" />
+    <ClInclude Include="FrequencyProjectionProfiling.h" />
+    <ClInclude Include="Hough.h" />
+    <ClInclude Include="IAlgorithm.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="FrequencyHough.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="ProjectionProfiling.h" />
+    <ClInclude Include="SpatialProjectionProfiling.h" />
+    <ClInclude Include="SpatialHough.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
