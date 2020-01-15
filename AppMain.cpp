@@ -131,7 +131,7 @@ int main()
 	IAlgorithm* spatialProjection = new SpatialProjectionProfiling();
 	IAlgorithm* frequencyHough = new FrequencyHough();
 
-	Mat src = imread("out/1-theta=8.png", IMREAD_GRAYSCALE);
+	Mat src = imread("out/9-theta=8.png", IMREAD_GRAYSCALE);
 	cv::Mat preprocessedSrc = IAlgorithm::Preprocess(src);
 
 	float houghAngle, projectionAngle,freqHoughAngle;
