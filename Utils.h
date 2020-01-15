@@ -11,3 +11,5 @@ std::vector<int> ComputeVHistogram(cv::Mat src);
 void GeneratePoints(cv::Mat& src_inverted, cv::Mat& drawing);
 
 void RotateImage(const cv::Mat& image, cv::Mat& out_image, float angle, cv::Scalar emptyColor);
+
+cv::Mat CreateSquareImage(const cv::Mat& input, const cv::Scalar& bgcolor);
