@@ -11,7 +11,4 @@ void FrequencyHough::Compute(const cv::Mat& src, float& angle, float& confidence
 	cv::threshold(freqSrc, freqSrc, 0, 255, cv::THRESH_OTSU);
 
 	cv::Mat out = Hough::ApplyTransform(freqSrc, angle, 0, true);
-	angle += 90;
-	confidence = 0;
 }
-

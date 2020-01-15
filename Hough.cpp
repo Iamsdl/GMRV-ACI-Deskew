@@ -8,7 +8,6 @@ cv::Mat Hough::ApplyTransform(const cv::Mat& points, float& angle, int threshold
 	std::vector<cv::Vec3f> lines; // will hold the results of the detection
 	HoughLines(points, lines, 1, STEP * CV_PI / 180, threshold, 0, 0); // runs the actual detection
 
-	angle = (CV_PI / 2 - lines[0][1]) * 180 / CV_PI;
 	float drawAngle = lines[0][1];
 
 	int correctVotes = 0;
@@ -16,10 +15,15 @@ cv::Mat Hough::ApplyTransform(const cv::Mat& points, float& angle, int threshold
 	for (size_t i = 0; i < lines.size(); i++)
 	{
 		lines[i][1] = (CV_PI / 2 - lines[i][1]) * 180 / CV_PI;
-		if (lines[i][1] == lines[0][1])
-			correctVotes += lines[i][2];
-		allVotes += lines[i][2];
+		NormalizeAngle(lines[i][1]);
+		if (lines[i][2] > lines[0][2] / 2)
+		{
+			if (lines[i][1] == lines[0][1])
+				correctVotes += lines[i][2];
+			allVotes += lines[i][2];
+		}
 	}
+	angle = lines[0][1];
 
 	if (!draw)
 		return dst;

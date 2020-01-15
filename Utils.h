@@ -18,3 +18,5 @@ cv::Mat CreateSquareImage(const cv::Mat& input, const cv::Scalar& bgcolor);
 int ComputeValue(int x, int r1, int s1, int r2, int s2);
 
 void ContrastStretch(cv::Mat& src, cv::Mat dst, int r1, int s1, int r2, int s2);
+
+void NormalizeAngle(float& angle);

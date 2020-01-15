@@ -25,8 +25,8 @@ void ProjectionProfiling::ApplyTransform(const cv::Mat& points, float& theta, fl
 			theta = -angle;
 		}
 		confidence = varMax / varSum;
-	}/*
-	for (int i = 0; i <= binSize; i++)
+	}
+	/*for (int i = 0; i <= 10; i++)
 	{
 		float angle = i - 5;
 		rotate_bound(points, rotatedImageTemp, angle,Scalar(0));

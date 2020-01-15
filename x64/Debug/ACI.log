@@ -1,1 +1,34 @@
-﻿  ACI.vcxproj -> D:\Data\GMRV\ACI\ACI\x64\Debug\ACI.exe
+﻿  Hough.cpp
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(17,49): warning C4244: '=': conversion from 'double' to '_Tp', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(17,49): warning C4244:         with
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(17,49): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(17,49): warning C4244:             _Tp=float
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(17,49): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(22,32): warning C4244: '+=': conversion from '_Tp' to 'int', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(22,32): warning C4244:         with
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(22,32): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(22,32): warning C4244:             _Tp=float
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(22,32): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(23,27): warning C4244: '+=': conversion from '_Tp' to 'int', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(23,27): warning C4244:         with
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(23,27): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(23,27): warning C4244:             _Tp=float
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(23,27): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(50,27): warning C4305: 'initializing': truncation from 'double' to 'float'
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(56,40): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(62,43): warning C4244: '=': conversion from 'double' to '_Tp', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(62,43): warning C4244:         with
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(62,43): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(62,43): warning C4244:             _Tp=float
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(62,43): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,14): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244: '+=': conversion from '_Tp' to '_Ty', possible loss of data
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:         with
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:             _Tp=float
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:         ]
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:         and
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:         [
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:             _Ty=int
+F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Hough.cpp(66,62): warning C4244:         ]
+  ACI.vcxproj -> F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\x64\Debug\ACI.exe

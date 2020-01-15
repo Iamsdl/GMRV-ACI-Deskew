@@ -128,8 +128,11 @@ int main()
 	double duration;
 	start = std::clock();
 
-	ofstream out("valori.csv");
-	out << "angle,houghAngle,projectionAngle,freqHoughAngle\n";
+
+
+	ofstream out("valori1.csv");
+	out << fixed << setprecision(2);
+	out << "index,angle,houghAngle,projectionAngle,freqHoughAngle\n";
 
 	IAlgorithm* spatialHough = new SpatialHough();
 	IAlgorithm* spatialProjection = new SpatialProjectionProfiling();
@@ -137,9 +140,24 @@ int main()
 
 	for (int i = FIRST_IMAGE_IDX; i <= LAST_IMAGE_IDX; ++i)
 	{
-		for (int angle = MIN_ANGLE; angle < MAX_ANGLE; angle += STEP)
+		for (float angle = MIN_ANGLE; angle <= MAX_ANGLE; angle += INPUT_STEP)
 		{
-			string inputName = "out/" + to_string(i) + "-theta=" + to_string(angle) + ".png";
+			/*string inputName = "in/" + to_string(i) + ".png";
+			Mat src = imread(inputName);
+
+			stringstream sstream;
+			sstream << fixed << setprecision(2) << "out/" << i << "-theta=" << angle << ".png";
+			string outName = sstream.str();
+			Mat out;
+
+			RotateImage(src, out, angle, cv::Scalar(255, 255, 255));
+			imwrite(outName, out);*/
+
+
+			stringstream sstream;
+			sstream << fixed << setprecision(2) << "out/" << i << "-theta=" << angle << ".png";
+			string inputName = sstream.str();
+
 			Mat src = imread(inputName, IMREAD_GRAYSCALE);
 			cv::Mat preprocessedSrc = IAlgorithm::Preprocess(src);
 
@@ -149,7 +167,7 @@ int main()
 			spatialHough->Compute(preprocessedSrc, houghAngle, houghConfidence);
 			spatialProjection->Compute(preprocessedSrc, projectionAngle, projectionConfidence);
 			frequencyHough->Compute(src, freqHoughAngle, freqHoughConfidence);
-			out << angle << "," << houghAngle << "," << projectionAngle << "," << freqHoughAngle << "\n";
+			out << i << "," << angle << "," << houghAngle << "," << projectionAngle << "," << freqHoughAngle << "\n";
 		}
 	}
 
