@@ -1,9 +1,10 @@
 #pragma once
-#include "Algorithm.h"
-class ProjectionProfiling :
-	public Algorithm
+#include "pch.h"
+#include "Utils.h"
+class ProjectionProfiling
 {
 public:
-	void Compute(const cv::Mat& src, cv::Mat& dst) override;
+	ProjectionProfiling() {};
+	static void ApplyTransform(const cv::Mat& points, float& theta, float& confidence, int binSize);
 };
 

@@ -1,9 +1,10 @@
 #pragma once
-#include "Algorithm.h"
+#include "FourierTransform.h"
+#include "IAlgorithm.h"
 class FrequencyHough :
-	public Algorithm
+	public IAlgorithm
 {
 public:
-	void Compute(const cv::Mat& src, cv::Mat& dst) override;
+	void Compute(const cv::Mat& src, float& angle, float& confidence) override;
 };
 

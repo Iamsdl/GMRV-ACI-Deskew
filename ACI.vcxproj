@@ -138,7 +138,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="FourierTransform.cpp" />
+    <ClCompile Include="Hough.cpp" />
+    <ClCompile Include="FrequencyHough.cpp" />
+    <ClCompile Include="ProjectionProfiling.cpp" />
+    <ClCompile Include="SpatialProjectionProfiling.cpp" />
+    <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="SpatialHough.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FourierTransform.h" />
+    <ClInclude Include="Hough.h" />
+    <ClInclude Include="IAlgorithm.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="FrequencyHough.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="ProjectionProfiling.h" />
+    <ClInclude Include="SpatialProjectionProfiling.h" />
+    <ClInclude Include="SpatialHough.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
