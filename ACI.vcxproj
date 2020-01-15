@@ -127,7 +127,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\OpenCV\build\include;$(SolutionDir)\OpenCV\build\x64\vc15\bin</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\OpenCV\build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FourierTransform.cpp" />
+    <ClCompile Include="FrequencyProjectionProfiling.cpp" />
     <ClCompile Include="Hough.cpp" />
     <ClCompile Include="FrequencyHough.cpp" />
     <ClCompile Include="ProjectionProfiling.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FourierTransform.h" />
+    <ClInclude Include="FrequencyProjectionProfiling.h" />
     <ClInclude Include="Hough.h" />
     <ClInclude Include="IAlgorithm.h" />
     <ClInclude Include="Constants.h" />

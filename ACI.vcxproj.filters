@@ -45,6 +45,9 @@
     <ClCompile Include="FourierTransform.cpp">
       <Filter>Source Files\CoreAlgorithms</Filter>
     </ClCompile>
+    <ClCompile Include="FrequencyProjectionProfiling.cpp">
+      <Filter>Source Files\Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="FourierTransform.h">
       <Filter>Source Files\CoreAlgorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequencyProjectionProfiling.h">
+      <Filter>Source Files\Algorithms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

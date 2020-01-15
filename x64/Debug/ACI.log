@@ -1,5 +1,1 @@
-﻿  FrequencyHough.cpp
-D:\Data\GMRV\ACI\ACI\FrequencyHough.cpp(7,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Data\GMRV\ACI\ACI\FrequencyHough.cpp(10,53): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Data\GMRV\ACI\ACI\FrequencyHough.cpp(13,55): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  ACI.vcxproj -> D:\Data\GMRV\ACI\ACI\x64\Debug\ACI.exe
+﻿  ACI.vcxproj -> D:\Data\GMRV\ACI\ACI\x64\Debug\ACI.exe

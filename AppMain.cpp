@@ -1,6 +1,7 @@
 #include "FrequencyHough.h"
 #include "SpatialHough.h"
 #include "SpatialProjectionProfiling.h"
+#include "FrequencyProjectionProfiling.h"
 
 using namespace std;
 using namespace cv;
@@ -126,22 +127,33 @@ int main()
 	std::clock_t start;
 	double duration;
 	start = std::clock();
-	
+
+	ofstream out("valori.csv");
+	out << "angle,houghAngle,projectionAngle,freqHoughAngle\n";
+
 	IAlgorithm* spatialHough = new SpatialHough();
 	IAlgorithm* spatialProjection = new SpatialProjectionProfiling();
 	IAlgorithm* frequencyHough = new FrequencyHough();
 
-	Mat src = imread("out/9-theta=8.png", IMREAD_GRAYSCALE);
-	cv::Mat preprocessedSrc = IAlgorithm::Preprocess(src);
+	for (int i = FIRST_IMAGE_IDX; i <= LAST_IMAGE_IDX; ++i)
+	{
+		for (int angle = MIN_ANGLE; angle < MAX_ANGLE; angle += STEP)
+		{
+			string inputName = "out/" + to_string(i) + "-theta=" + to_string(angle) + ".png";
+			Mat src = imread(inputName, IMREAD_GRAYSCALE);
+			cv::Mat preprocessedSrc = IAlgorithm::Preprocess(src);
 
-	float houghAngle, projectionAngle,freqHoughAngle;
-	float houghConfidence, projectionConfidence,freqHoughConfidence;
+			float houghAngle, projectionAngle, freqHoughAngle, freqProjectionAngle;
+			float houghConfidence, projectionConfidence, freqHoughConfidence, freqProjectionConfidence;
 
-	spatialHough->Compute(preprocessedSrc, houghAngle, houghConfidence);
-	spatialProjection->Compute(preprocessedSrc, projectionAngle, projectionConfidence);
-	frequencyHough->Compute(src, freqHoughAngle, freqHoughConfidence);
+			spatialHough->Compute(preprocessedSrc, houghAngle, houghConfidence);
+			spatialProjection->Compute(preprocessedSrc, projectionAngle, projectionConfidence);
+			frequencyHough->Compute(src, freqHoughAngle, freqHoughConfidence);
+			out << angle << "," << houghAngle << "," << projectionAngle << "," << freqHoughAngle << "\n";
+		}
+	}
 
-	std::cout << houghAngle << ", " << projectionAngle;
+	out.close();
 
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 	std::cout << "Finished in " << duration << " seconds";

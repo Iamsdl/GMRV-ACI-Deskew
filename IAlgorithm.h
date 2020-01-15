@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "Utils.h"
+#include "FourierTransform.h"
 #include "ProjectionProfiling.h"
 #include "Hough.h"
 

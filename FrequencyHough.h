@@ -1,5 +1,4 @@
 #pragma once
-#include "FourierTransform.h"
 #include "IAlgorithm.h"
 class FrequencyHough :
 	public IAlgorithm
