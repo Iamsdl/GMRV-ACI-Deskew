@@ -1,5 +1,6 @@
 #pragma once
 #include "IAlgorithm.h"
+
 class FrequencyHough : public IAlgorithm
 {
 public:

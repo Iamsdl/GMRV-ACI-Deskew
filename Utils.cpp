@@ -130,7 +130,7 @@ void RotateImage(const Mat& image, Mat& out_image, float angle,cv::Scalar emptyC
 }
 
 
-int ComputeValue(int x, int r1, int s1, int r2, int s2)
+int ComputeValue_Contrast(int x, int r1, int s1, int r2, int s2)
 {
 	float result;
 	if (0 <= x && x <= r1) {
@@ -150,7 +150,7 @@ void ContrastStretch(cv::Mat& src, cv::Mat dst, int r1, int s1, int r2, int s2)
 	for (int y = 0; y < src.rows; y++) {
 		for (int x = 0; x < src.cols; x++) {
 			for (int c = 0; c < 3; c++) {
-				int output = ComputeValue(src.at<uchar>(y, x), r1, s1, r2, s2);
+				int output = ComputeValue_Contrast(src.at<uchar>(y, x), r1, s1, r2, s2);
 				dst.at<uchar>(y, x) = cv::saturate_cast<uchar>(output);
 			}
 		}

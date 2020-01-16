@@ -24,9 +24,6 @@ cv::Mat FourierTransform::ApplyTransform(const cv::Mat& src) {
 	cv::merge(planes, 2, complexI);         // Add to the expanded another plane with zeros
 	cv::dft(complexI, complexI);            // this way the result may fit in the source matrix
 
-	/*cv::Mat test;
-	cv::dft(complexI, test, cv::DFT_INVERSE | cv::DFT_COMPLEX_INPUT | cv::DFT_REAL_OUTPUT | cv::DFT_SCALE);*/
-
 	split(complexI, planes);                   // planes[0] = Re(DFT(I), planes[1] = Im(DFT(I))
 	magnitude(planes[0], planes[1], planes[0]);// planes[0] = magnitude
 

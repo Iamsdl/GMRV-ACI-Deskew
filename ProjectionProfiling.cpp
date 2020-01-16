@@ -5,7 +5,7 @@ void ProjectionProfiling::ApplyTransform(const cv::Mat& points, float& theta, fl
 	cv::Mat rotatedImageTemp = cv::Mat::zeros(points.size(), CV_8UC1);
 	float varMax = 0;
 	float varSum = 0;
-	for (float angle = MIN_ANGLE; angle <= MAX_ANGLE; angle += STEP)
+	for (float angle = MIN_ANGLE; angle <= MAX_ANGLE; angle += STEP_ANGLE)
 	{
 		RotateImage(points, rotatedImageTemp, angle, cv::Scalar(0));
 		std::vector<int> sumRows;
@@ -26,31 +26,4 @@ void ProjectionProfiling::ApplyTransform(const cv::Mat& points, float& theta, fl
 		}
 	}
 	confidence = 1 - (abs(0.5f - varMax / varSum) * PROJ_CONFIDENCE_MOD);
-	/*for (int i = 0; i <= 10; i++)
-	{
-		float angle = i - 5;
-		rotate_bound(points, rotatedImageTemp, angle,Scalar(0));
-
-		vector<int> sumRows = ComputeRowSums(rotatedImageTemp);
-		vector<int> b(sumRows.size());
-
-		for (size_t i = 0; i < sumRows.size(); i++)
-		{
-			b[i] = sumRows[i] - sumRows[i] % binSize;
-		}
-
-		float medb = ComputeMeanValue(b);
-		float varb = ComputeVariance(b, medb);
-
-		float med = ComputeMeanValue(sumRows);
-		float var = ComputeVariance(sumRows, med);
-
-		float confidenceTemp = varb / var;
-
-		if (confidenceTemp > confidence)
-		{
-			confidence = confidenceTemp;
-			theta = angle;
-		}
-	}*/
 }

@@ -149,6 +149,7 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BestFirstVoting.h" />
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyProjectionProfiling.h" />
     <ClInclude Include="Hough.h" />
@@ -159,7 +160,11 @@
     <ClInclude Include="ProjectionProfiling.h" />
     <ClInclude Include="SpatialProjectionProfiling.h" />
     <ClInclude Include="SpatialHough.h" />
+    <ClInclude Include="UnanimousVoting.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="IVoting.h" />
+    <ClInclude Include="VotingSystem.h" />
+    <ClInclude Include="WeightedVoting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

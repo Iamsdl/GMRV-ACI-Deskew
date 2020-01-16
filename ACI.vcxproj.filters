@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Algorithms">
       <UniqueIdentifier>{5d49345e-4e20-450d-91dd-172844e318a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\FutureWork">
+      <UniqueIdentifier>{c76b9216-7953-4d5b-b9da-0e5747c59a5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Voting">
+      <UniqueIdentifier>{c6b7188c-89c7-49e5-bbc6-e3d67f69fff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -46,7 +52,7 @@
       <Filter>Source Files\CoreAlgorithms</Filter>
     </ClCompile>
     <ClCompile Include="FrequencyProjectionProfiling.cpp">
-      <Filter>Source Files\Algorithms</Filter>
+      <Filter>Source Files\FutureWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,7 +87,22 @@
       <Filter>Source Files\CoreAlgorithms</Filter>
     </ClInclude>
     <ClInclude Include="FrequencyProjectionProfiling.h">
-      <Filter>Source Files\Algorithms</Filter>
+      <Filter>Source Files\FutureWork</Filter>
+    </ClInclude>
+    <ClInclude Include="IVoting.h">
+      <Filter>Source Files\Voting</Filter>
+    </ClInclude>
+    <ClInclude Include="VotingSystem.h">
+      <Filter>Source Files\Voting</Filter>
+    </ClInclude>
+    <ClInclude Include="BestFirstVoting.h">
+      <Filter>Source Files\Voting</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightedVoting.h">
+      <Filter>Source Files\Voting</Filter>
+    </ClInclude>
+    <ClInclude Include="UnanimousVoting.h">
+      <Filter>Source Files\Voting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

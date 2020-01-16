@@ -1,6 +1,6 @@
 #pragma once
-#include "IAlgorithm.h"
 #include "ProjectionProfiling.h"
+#include "IAlgorithm.h"
 class SpatialProjectionProfiling : public IAlgorithm
 {
 public:

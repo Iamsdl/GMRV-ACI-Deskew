@@ -23,5 +23,6 @@ public:
 
 public:
 	static ProjectionProfiling projectionProfilingCore;
+	virtual const char* GetTypeAsString() const { return "IAlgorithm"; }
 	static Hough houghCore;
 };

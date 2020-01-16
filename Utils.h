@@ -2,6 +2,19 @@
 #include "Constants.h"
 #include "pch.h"
 
+class Result
+{
+public:
+	Result() { angle = 0; confidence = 0; };
+	Result(float angle, float confidence) { this->angle = angle; this->confidence = confidence; }
+public:
+	float angle;
+	float confidence;
+};
+
+typedef std::unordered_map<std::string, float> MapVotingAngles;
+typedef std::unordered_map<std::string, Result> MapNameResult;
+
 float ComputeVariance(std::vector<int> sumRows, float med);
 float ComputeMeanValue(std::vector<int> sumRows);
 
