@@ -43,8 +43,13 @@ void ComputeAllImages(){
 	REGISTER_ALGORITHM(UnanimousVoting);
 
 	out << fixed << setprecision(2);
-	out << "index,angle,houghAngle,houghConfidence,projectionAngle,projectionConfidence,freqHoughAngle,freqHoughConfidence"
-		",bestFirstAngle,bestFirstConfidence,unanimousAngle,unanimousConfidence,weightedAngle,weightedConfidence\n";
+	out << "index,angle,"
+		"houghAngle,houghConfidence,"
+		"projectionAngle,projectionConfidence,"
+		"freqHoughAngle,freqHoughConfidence,"
+		"bestFirstAngle,bestFirstConfidence,"
+		"unanimousAngle,unanimousConfidence,"
+		"weightedAngle,weightedConfidence\n";
 
 	IAlgorithm* spatialHough = new SpatialHough();
 	IAlgorithm* spatialProjection = new SpatialProjectionProfiling();
@@ -101,6 +106,7 @@ int main()
 	double duration;
 	start = std::clock();
 	
+	//RotateAllImages();
 	ComputeAllImages();
 
 	duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;

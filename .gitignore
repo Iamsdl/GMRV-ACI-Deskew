@@ -5,4 +5,5 @@
 /.vs
 /opencv
 /opencv_world412d.dll
-/x64
+out
+x64

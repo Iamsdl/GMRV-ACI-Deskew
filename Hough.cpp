@@ -6,7 +6,7 @@ cv::Mat Hough::ApplyTransform(const cv::Mat& points, float& angle, float& confid
 	cv::cvtColor(points, dst, cv::COLOR_GRAY2BGR);
 	// Standard Hough Line Transform
 	std::vector<cv::Vec3f> lines; // will hold the results of the detection
-	HoughLines(points, lines, 1, STEP_ANGLE * CV_PI / 180, threshold, 0, 0); // runs the actual detection
+	HoughLines(points, lines, 1, STEP_ANGLE * CV_PI / 180, threshold, 0, 0, (90 + MIN_ANGLE-0.1f) * CV_PI / 180, (90 + MAX_ANGLE) * CV_PI / 180); // runs the actual detection
 
 	float drawAngle = lines[0][1];
 
@@ -27,7 +27,7 @@ cv::Mat Hough::ApplyTransform(const cv::Mat& points, float& angle, float& confid
 			allVotes += lines[i][2];
 		}
 	}
-	confidence = (float) correctVotes / allVotes;
+	confidence = (float)correctVotes / allVotes;
 	angle = lines[0][1];
 
 	if (!draw)
