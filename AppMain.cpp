@@ -34,14 +34,14 @@ void ComputeAllImages(){
 	stringstream sstream;
 	sstream << fixed << setprecision(2);
 
-	sstream << "valori-HoughConfidenceMod=" << HOUGH_CONFIDENCE_MOD << "ProjConfidenceMod=" << PROJ_CONFIDENCE_MOD << ".csv";
-	ofstream out(sstream.str());
-	sstream.str(std::string());
+	//sstream << "valori-HoughConfidenceMod=" << HOUGH_CONFIDENCE_MOD << "ProjConfidenceMod=" << PROJ_CONFIDENCE_MOD << ".csv";
+	//ofstream out(sstream.str());
+	//sstream.str(std::string());
 
 	REGISTER_ALGORITHM(BestFirstVoting);
 	REGISTER_ALGORITHM(WeightedVoting);
 	REGISTER_ALGORITHM(UnanimousVoting);
-
+/*
 	out << fixed << setprecision(2);
 	out << "index,angle,"
 		"houghAngle,houghConfidence,"
@@ -50,15 +50,19 @@ void ComputeAllImages(){
 		"bestFirstAngle,bestFirstConfidence,"
 		"unanimousAngle,unanimousConfidence,"
 		"weightedAngle,weightedConfidence\n";
-
+		*/
 	IAlgorithm* spatialHough = new SpatialHough();
 	IAlgorithm* spatialProjection = new SpatialProjectionProfiling();
 	IAlgorithm* frequencyHough = new FrequencyHough();
 
+	std::clock_t start;
+	double durationH = 0, durationF = 0, durationPr = 0;
+	double durationBF = 0, durationU = 0, durationW = 0;
 	for (int i = FIRST_IMAGE_IDX; i <= LAST_IMAGE_IDX; ++i)
 	{
 		for (float angle = MIN_ANGLE; angle <= MAX_ANGLE; angle += INPUT_STEP)
 		{
+			
 			sstream << "out/" << i << "-theta=" << angle << ".png";
 			string inputName = sstream.str();
 			sstream.str(std::string());
@@ -69,9 +73,17 @@ void ComputeAllImages(){
 			float houghAngle, projectionAngle, freqHoughAngle;
 			float houghConfidence, projectionConfidence, freqHoughConfidence;
 
+			start = std::clock();
 			spatialHough->Compute(preprocessedSrc, houghAngle, houghConfidence);
+			durationH += ((std::clock() - start) / (double)CLOCKS_PER_SEC);
+
+			start = std::clock();
 			spatialProjection->Compute(preprocessedSrc, projectionAngle, projectionConfidence);
+			durationPr += ((std::clock() - start) / (double)CLOCKS_PER_SEC);
+
+			start = std::clock();
 			frequencyHough->Compute(src, freqHoughAngle, freqHoughConfidence);
+			durationF += ((std::clock() - start) / (double)CLOCKS_PER_SEC);
 
 			Result hough(houghAngle, houghConfidence);
 			Result projectionProfiling(projectionAngle, projectionConfidence);
@@ -85,16 +97,16 @@ void ComputeAllImages(){
 			MapNameResult votingResult = VotingSystem::ComputeVoting(resultsMap);
 
 
-			out << i << "," << angle << "," << houghAngle << "," << houghConfidence << ","
+	/*		out << i << "," << angle << "," << houghAngle << "," << houghConfidence << ","
 				<< projectionAngle << "," << projectionConfidence << ","
 				<< freqHoughAngle << "," << freqHoughConfidence << ","
 				<< votingResult["BestFirstVoting"].angle << "," << votingResult["BestFirstVoting"].confidence << ","
 				<< votingResult["UnanimousVoting"].angle << "," << votingResult["UnanimousVoting"].confidence << ","
-				<< votingResult["WeightedVoting"].angle << "," << votingResult["WeightedVoting"].confidence << "\n";
+				<< votingResult["WeightedVoting"].angle << "," << votingResult["WeightedVoting"].confidence << "\n";*/
 		}
 	}
-
-	out.close();
+	cout << durationH << "\t" << durationPr << "\t" << durationF << "\n";
+	//out.close();
 	delete spatialHough;
 	delete spatialProjection;
 	delete frequencyHough;
