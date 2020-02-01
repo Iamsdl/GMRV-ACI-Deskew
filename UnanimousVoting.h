@@ -4,19 +4,32 @@ class UnanimousVoting : public IVoting
 {
 public:
 	Result Comput(MapNameResult& resultMap) {
-		float angle=0;
 		MapNameResult::iterator it;
+		
+		float maxConfidence = 0;
 		for (it = resultMap.begin(); it != resultMap.end(); it++)
 		{
-			angle += it->second.angle;
+			if (it->second.confidence > maxConfidence)
+				maxConfidence = it->second.confidence;
 		}
-		angle = angle/ resultMap.size();
-		float confidence = 1;
+
+		int nr = 0;
+		float angle = 0;
+		float confidence = 0;
 		for (it = resultMap.begin(); it != resultMap.end(); it++)
 		{
-			confidence -= (abs(it->second.angle - angle))/resultMap.size();
+			if (it->second.confidence > maxConfidence / 2)
+			{
+				angle += it->second.angle;
+				confidence += it->second.confidence;
+
+				nr++;
+			}
 		}
-		return Result(angle,confidence);
+		angle /= nr;
+		confidence /= nr;
+
+		return Result(angle, confidence);
 	};
 	DEFINE_ALGORITHM_NAME(UnanimousVoting)
 };

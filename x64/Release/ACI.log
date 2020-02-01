@@ -1,9 +1,5 @@
 ﻿  AppMain.cpp
-  Generating code
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\vector(1458): warning C4723: potential divide by 0
-F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\Utils.cpp(54): warning C4723: potential divide by 0
-  687 of 934 functions (73.6%) were compiled, the rest were copied from previous compilation.
-    15 functions were new in current compilation
-    35 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  ACI.vcxproj -> F:\My Stuff\SDL\Facultate\Master\anu 2\sem 1\Analiza continutului imaginilor\ACI\x64\Release\ACI.exe
+  FourierTransform.cpp
+  FrequencyHough.cpp
+  FrequencyProjectionProfiling.cpp
+  Hough.cpp
