@@ -59,6 +59,7 @@ void ComputeAllImages(){
 	{
 		for (float angle = MIN_ANGLE; angle <= MAX_ANGLE; angle += INPUT_STEP)
 		{
+			
 			sstream << "out/" << i << "-theta=" << angle << ".png";
 			string inputName = sstream.str();
 			sstream.str(std::string());
@@ -83,7 +84,6 @@ void ComputeAllImages(){
 			resultsMap["freqHough"] = freqHough;
 
 			MapNameResult votingResult = VotingSystem::ComputeVoting(resultsMap);
-
 
 			out << i << "," << angle << "," << houghAngle << "," << houghConfidence << ","
 				<< projectionAngle << "," << projectionConfidence << ","
